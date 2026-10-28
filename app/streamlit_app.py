@@ -1,3 +1,5 @@
+import os
+
 import pandas as pd
 import plotly.express as px
 import streamlit as st
@@ -45,7 +47,20 @@ def make_chart(df):
     return px.bar(df, x=x_col, y=y_col,
                   color_discrete_sequence=[CHART_COLOR])
 
-
+ACCESS_CODE = os.getenv("APP_PASSWORD")
+if ACCESS_CODE and not st.session_state.get("authed"):
+    entered = st.text_input("Access code", type="password")
+    if entered == ACCESS_CODE:
+        st.session_state["authed"] = True
+        st.rerun()
+    if entered:
+        st.error("Incorrect access code.")
+    st.info(
+        "This demo uses a limited free API quota, so access is by code. "
+        "See the demo GIF in the README to watch it work."
+    )
+    st.stop()
+    
 schema = load_schema()
 
 # sidebar runs first so example buttons can fill the question box
