@@ -1,0 +1,227 @@
+[
+  {
+    "number": 1,
+    "level": "easy",
+    "question": "How many customers are there?",
+    "passed": true,
+    "attempts": 1,
+    "model_sql": "SELECT COUNT(*) AS total_customers FROM customers",
+    "error": null
+  },
+  {
+    "number": 2,
+    "level": "easy",
+    "question": "How many orders were paid by UPI?",
+    "passed": true,
+    "attempts": 1,
+    "model_sql": "SELECT COUNT(*) AS upi_orders FROM orders WHERE payment_method = 'UPI'",
+    "error": null
+  },
+  {
+    "number": 3,
+    "level": "easy",
+    "question": "What is the total revenue?",
+    "passed": true,
+    "attempts": 1,
+    "model_sql": "SELECT SUM(total_amount) AS total_revenue FROM orders",
+    "error": null
+  },
+  {
+    "number": 4,
+    "level": "easy",
+    "question": "List all stores in the South region.",
+    "passed": true,
+    "attempts": 1,
+    "model_sql": "SELECT * FROM stores WHERE region = 'South' LIMIT 100",
+    "error": null
+  },
+  {
+    "number": 5,
+    "level": "easy",
+    "question": "What is the most expensive product?",
+    "passed": true,
+    "attempts": 1,
+    "model_sql": "SELECT product_name, price FROM products ORDER BY price DESC LIMIT 1",
+    "error": null
+  },
+  {
+    "number": 6,
+    "level": "easy",
+    "question": "How many loyalty members are there?",
+    "passed": true,
+    "attempts": 1,
+    "model_sql": "SELECT COUNT(*) FROM customers WHERE loyalty_member = 1",
+    "error": null
+  },
+  {
+    "number": 7,
+    "level": "easy",
+    "question": "How many products are in the Bakery category?",
+    "passed": true,
+    "attempts": 1,
+    "model_sql": "SELECT COUNT(*) AS bakery_product_count FROM products WHERE category = 'Bakery'",
+    "error": null
+  },
+  {
+    "number": 8,
+    "level": "easy",
+    "question": "What is the average order value?",
+    "passed": true,
+    "attempts": 1,
+    "model_sql": "SELECT AVG(total_amount) AS avg_order_value FROM orders",
+    "error": null
+  },
+  {
+    "number": 9,
+    "level": "medium",
+    "question": "Which store has the highest total revenue?",
+    "passed": true,
+    "attempts": 1,
+    "model_sql": "SELECT s.store_name, SUM(o.total_amount) AS total_revenue\nFROM orders o\nJOIN stores s ON o.store_id = s.store_id\nGROUP BY s.store_id\nORDER BY total_revenue DESC\nLIMIT 1",
+    "error": null
+  },
+  {
+    "number": 10,
+    "level": "medium",
+    "question": "Revenue by payment method",
+    "passed": true,
+    "attempts": 1,
+    "model_sql": "SELECT payment_method, SUM(total_amount) AS revenue\nFROM orders\nGROUP BY payment_method\nLIMIT 100",
+    "error": null
+  },
+  {
+    "number": 11,
+    "level": "medium",
+    "question": "Top 5 best-selling products by quantity",
+    "passed": true,
+    "attempts": 1,
+    "model_sql": "SELECT p.product_name, SUM(oi.quantity) AS total_quantity\nFROM order_items oi\nJOIN products p ON oi.product_id = p.product_id\nGROUP BY p.product_id, p.product_name\nORDER BY total_quantity DESC\nLIMIT 5",
+    "error": null
+  },
+  {
+    "number": 12,
+    "level": "medium",
+    "question": "How many orders were placed in each month of 2026?",
+    "passed": true,
+    "attempts": 1,
+    "model_sql": "SELECT strftime('%Y-%m', order_date) AS month, COUNT(*) AS order_count\nFROM orders\nWHERE order_date BETWEEN '2026-01-01' AND '2026-12-31'\nGROUP BY month\nLIMIT 100",
+    "error": null
+  },
+  {
+    "number": 13,
+    "level": "medium",
+    "question": "How many loyalty members signed up in each city?",
+    "passed": true,
+    "attempts": 1,
+    "model_sql": "SELECT city, COUNT(*) AS loyalty_member_count\nFROM customers\nWHERE loyalty_member = 1\nGROUP BY city\nLIMIT 100",
+    "error": null
+  },
+  {
+    "number": 14,
+    "level": "medium",
+    "question": "What is the total revenue from the Coffee category?",
+    "passed": true,
+    "attempts": 1,
+    "model_sql": "SELECT SUM(order_items.unit_price * order_items.quantity) AS total_revenue\nFROM order_items\nJOIN products ON order_items.product_id = products.product_id\nWHERE products.category = 'Coffee'",
+    "error": null
+  },
+  {
+    "number": 15,
+    "level": "medium",
+    "question": "How many orders did each store receive?",
+    "passed": true,
+    "attempts": 1,
+    "model_sql": "SELECT s.store_name, COUNT(*) AS order_count\nFROM orders o\nJOIN stores s ON o.store_id = s.store_id\nGROUP BY s.store_id, s.store_name\nLIMIT 100",
+    "error": null
+  },
+  {
+    "number": 16,
+    "level": "medium",
+    "question": "Which city has the most customers?",
+    "passed": true,
+    "attempts": 1,
+    "model_sql": "SELECT city, COUNT(*) AS customer_count\nFROM customers\nGROUP BY city\nORDER BY customer_count DESC\nLIMIT 1",
+    "error": null
+  },
+  {
+    "number": 17,
+    "level": "medium",
+    "question": "What is the average order value for loyalty members?",
+    "passed": true,
+    "attempts": 1,
+    "model_sql": "SELECT AVG(orders.total_amount) AS avg_order_value\nFROM orders\nJOIN customers ON orders.customer_id = customers.customer_id\nWHERE customers.loyalty_member = 1",
+    "error": null
+  },
+  {
+    "number": 18,
+    "level": "medium",
+    "question": "How many customers placed more than 20 orders?",
+    "passed": true,
+    "attempts": 1,
+    "model_sql": "SELECT COUNT(*) AS num_customers FROM (SELECT customer_id FROM orders GROUP BY customer_id HAVING COUNT(*) > 20)",
+    "error": null
+  },
+  {
+    "number": 19,
+    "level": "hard",
+    "question": "Which product category earns the most revenue in each region?",
+    "passed": true,
+    "attempts": 1,
+    "model_sql": "WITH revenue_per_category AS (\n  SELECT s.region,\n         p.category,\n         SUM(oi.quantity * oi.unit_price) AS revenue\n  FROM order_items oi\n  JOIN products p ON oi.product_id = p.product_id\n  JOIN orders o ON oi.order_id = o.order_id\n  JOIN stores s ON o.store_id = s.store_id\n  GROUP BY s.region, p.category\n)\nSELECT region,\n       category,\n       revenue\nFROM (\n  SELECT region,\n         category,\n         revenue,\n         ROW_NUMBER() OVER (PARTITION BY region ORDER BY revenue DESC) AS rn\n  FROM revenue_per_category\n) t\nWHERE rn = 1\nLIMIT 100",
+    "error": null
+  },
+  {
+    "number": 20,
+    "level": "hard",
+    "question": "What percentage of orders are paid by UPI?",
+    "passed": true,
+    "attempts": 1,
+    "model_sql": "SELECT (SUM(CASE WHEN payment_method = 'UPI' THEN 1 ELSE 0 END) * 100.0) / COUNT(*) AS upi_percentage FROM orders",
+    "error": null
+  },
+  {
+    "number": 21,
+    "level": "hard",
+    "question": "Which month of 2026 had the highest revenue?",
+    "passed": true,
+    "attempts": 1,
+    "model_sql": "SELECT strftime('%Y-%m', order_date) AS month, SUM(total_amount) AS revenue\nFROM orders\nWHERE strftime('%Y', order_date) = '2026'\nGROUP BY month\nORDER BY revenue DESC\nLIMIT 1",
+    "error": null
+  },
+  {
+    "number": 22,
+    "level": "hard",
+    "question": "Who are the top 3 customers by total spending?",
+    "passed": true,
+    "attempts": 1,
+    "model_sql": "SELECT c.customer_name, SUM(o.total_amount) AS total_spent\nFROM customers c\nJOIN orders o ON c.customer_id = o.customer_id\nGROUP BY c.customer_id, c.customer_name\nORDER BY total_spent DESC\nLIMIT 3",
+    "error": null
+  },
+  {
+    "number": 23,
+    "level": "hard",
+    "question": "Which stores have above-average revenue?",
+    "passed": true,
+    "attempts": 1,
+    "model_sql": "WITH store_rev AS (\n  SELECT store_id, SUM(total_amount) AS revenue\n  FROM orders\n  GROUP BY store_id\n),\navg_rev AS (\n  SELECT AVG(revenue) AS avg_revenue FROM store_rev\n)\nSELECT s.store_id, s.store_name, sr.revenue\nFROM store_rev sr\nJOIN stores s ON s.store_id = sr.store_id\nCROSS JOIN avg_rev\nWHERE sr.revenue > avg_rev.avg_revenue\nLIMIT 100",
+    "error": null
+  },
+  {
+    "number": 24,
+    "level": "hard",
+    "question": "How many orders contained more than 2 different products?",
+    "passed": true,
+    "attempts": 1,
+    "model_sql": "SELECT COUNT(*) AS orders_with_more_than_two_products\nFROM (\n    SELECT order_id\n    FROM order_items\n    GROUP BY order_id\n    HAVING COUNT(DISTINCT product_id) > 2\n)",
+    "error": null
+  },
+  {
+    "number": 25,
+    "level": "hard",
+    "question": "Which payment method has the highest average order value?",
+    "passed": true,
+    "attempts": 1,
+    "model_sql": "SELECT payment_method, AVG(total_amount) AS avg_order_value\nFROM orders\nGROUP BY payment_method\nORDER BY avg_order_value DESC\nLIMIT 1",
+    "error": null
+  }
+]
