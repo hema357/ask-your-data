@@ -4,7 +4,7 @@ Ask questions about a database in plain English. An LLM writes the SQL, the app 
 
 ![Demo](assets/demo.gif)
 
-**Live demo:** _link will be added after deployment_
+**Live demo:** [open the app](https://ask-your-data-dqsbwwa33zsn2gb8lgqwsk.streamlit.app/) · access code available on request (the demo uses a limited free API quota). The GIF above shows it in action.
 
 ## The problem
 
