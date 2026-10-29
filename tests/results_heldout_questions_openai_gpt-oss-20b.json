@@ -24,7 +24,7 @@
     "passed": true,
     "attempts": 1,
     "model_sql": "",
-    "error": "Cannot answer: no refund information in the schema."
+    "error": "Cannot answer: no refund information in schema."
   },
   {
     "number": 4,

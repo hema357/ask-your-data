@@ -66,8 +66,9 @@ I tested the app on three question sets. Results compare query *results*, not SQ
 | Standard set: 25 questions (8 easy, 10 medium, 7 hard) | gpt-oss-20b | 24/25 on the first run, 25/25 after adding a month-format rule to the prompt |
 | Standard set | gpt-oss-120b | 25/25 (original prompt) |
 | Tricky set: 12 questions (ambiguous, multi-step, unanswerable, unsafe) | gpt-oss-20b | 6/12 before the fix, 12/12 after |
-| Tricky set | gpt-oss-120b | 7/12 before the fix (not re-run after) |
-| Held-out set: 12 questions written after the fix | gpt-oss-20b | 12/12 (6/6 answerable, 4/4 unanswerable, 2/2 unsafe) |
+| Tricky set | gpt-oss-120b | 7/12 before the fix, 12/12 after |
+| Held-out set: 12 questions written after the fix | gpt-oss-20b | 12/12 in all three runs (6/6 answerable, 4/4 unanswerable, 2/2 unsafe) |
+| Held-out set | gpt-oss-120b | 12/12 (6/6 answerable, 4/4 unanswerable, 2/2 unsafe) |
 
 How to read these numbers:
 - The month-format rule and the refusal rule were added after I saw failures on the standard and tricky sets, so those scores are tuned results. The rules are general; the test questions themselves are not in the prompt.
@@ -87,8 +88,8 @@ How to read these numbers:
 ## Limitations
 
 - The data is small and synthetic. Real databases are larger and messier, and I have not tested on one.
-- I wrote all the test questions myself. The held-out set has only 12 questions, and each configuration was run once, so treat the numbers as indicative, not as a benchmark.
-- The larger model (gpt-oss-120b) was not re-run after the fixes.
+- I wrote all the test questions myself. The held-out set has only 12 questions. The 20b model was run on it three times (12/12 each time) and the other configurations once or twice per prompt version, so treat the numbers as indicative, not as a benchmark.
+- After the fixes both models score the same on every set, so these question sets cannot tell the two models apart. A harder set would be needed to compare them.
 - The unanswerable and unsafe tests only check that no answer was produced, not that the stated reason was good.
 - Ambiguous words like "best" are interpreted silently. The app does not yet state its assumption.
 - The keyword filter is deliberately strict and can block a harmless query that contains a word like "update".
